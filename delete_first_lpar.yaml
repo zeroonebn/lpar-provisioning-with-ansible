@@ -1,0 +1,19 @@
+- hosts: localhost
+  connection: local
+  collections:
+    - ibm.power_hmc
+  gather_facts: False
+  vars_prompt:
+    - name: hmc_password
+      prompt: Enter HMC password
+
+  tasks:
+    - name: Create a first LPAR
+      powervm_lpar_instance:
+        hmc_host: hmc
+        hmc_auth:
+          username: hscroot
+          password: '{{ hmc_password }}'
+        system_name: S1022
+        vm_name: TEST_ANSIBLE
+        state: absent

@@ -1,0 +1,39 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_prompt:
+    - name: hmc_password
+      prompt: Enter HMC password
+
+  tasks:
+    - name: Create a first LPAR
+      ibm.power_hmc.powervm_lpar_instance:
+        hmc_host: hmc
+        hmc_auth:
+          username: hcsroot
+          password: '{{ hmc_password }}'
+        system_name: S1022
+        vm_name: TEST_ANSIBLE
+        virt_network_config:
+          - network-name: VLAN638-ETHERNET0
+        npiv_config:
+          - vios_name: VIOS1
+            fc_port: fcs0
+          - vios_name: VIOS1
+            fc_port: fcs1
+          - vios_name: VIOS2
+            fc_port: fcs0
+          - vios_name: VIOS2
+            fc_port: fcs1
+        os_type: ibmi
+        shared_proc_pool: IBMi
+        max_proc_unit: 4
+        min_proc_unit: 0.05
+        proc_unit: 0.05
+        max_proc: 4
+        min_proc: 1
+        proc: 1
+        max_mem: 12288
+        min_mem: 4096
+        mem: 8192
+        state: present
