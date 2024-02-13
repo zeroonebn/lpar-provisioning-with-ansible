@@ -15,7 +15,7 @@
         system_name: S1022
         vm_name: TEST_ANSIBLE
         virt_network_config:
-          - network-name: VLAN638-ETHERNET0
+          - network_name: VLAN638-ETHERNET0
         npiv_config:
           - vios_name: VIOS1
             fc_port: fcs0
